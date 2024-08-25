@@ -1,4 +1,4 @@
-   #!/usr/bin/python3
+#!/usr/bin/python3
 """ Making changes """
 
 
@@ -22,4 +22,4 @@ def makeChange(coins, total):
             return temp
         check -= i
         temp -= 1
-    return -1 
+    return -1
