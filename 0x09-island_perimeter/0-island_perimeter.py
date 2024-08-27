@@ -1,39 +1,51 @@
 #!/usr/bin/python3
+"""Module for Island Perimeter
+"""
+
 
 def island_perimeter(grid):
-    """
-    Calculates the perimeter of the island in a 2D grid.
+    """Returns the perimeter of the island described in grid.
+
+    grid is a list of list of integers:
+    - 0 represents water
+    - 1 represents land
+    Each cell is square, with a side length of 1
+    Cells are connected horizontally/vertically (not diagonally).
+    grid is rectangular, with its width and height not exceeding 100
+    The grid is completely surrounded by water
+    There is only one island (or nothing).
+    The island doesn’t have “lakes” (water inside that isn’t connected to
+    the water surrounding the island).
 
     Args:
-        grid (List[List[int]]): A 2D grid represented as a list of lists, where 0 represents water and 1 represents land.
+        grid (list of list of int): the grid representing the island
 
     Returns:
-        int: The perimeter of the island in the grid.
-
-    Notes:
-        - The grid is assumed to be rectangular, with each row having the same number of columns.
-        - The grid can be of any size, as long as it is a valid 2D list.
-        - If there is no island (no land cells) in the grid, the function will return 0.
-        - If there are multiple islands in the grid, the function will return the perimeter of the largest island.
-
-    Examples:
-        >>> island_perimeter([[0,1,0,0], [1,1,1,0], [0,1,0,0], [1,1,0,0]])
-        16
-        >>> island_perimeter([[1]])
-        4
-        >>> island_perimeter([[0,0,0,0], [0,0,0,0], [0,0,0,0], [0,0,0,0]])
-        0
-        >>> island_perimeter([[0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], [0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0]])
-        16
+        int: the perimeter of the island
     """
+    # Determine the number of rows and columns in the grid
+    rows = len(grid)
+    cols = len(grid[0])
+
+    # Initialize the perimeter variable to 0
     perimeter = 0
-    for i in range(len(grid)):
-        for j in range(len(grid[0])):
+
+    # Loop through each cell in the grid
+    for i in range(rows):
+        for j in range(cols):
             if grid[i][j] == 1:
-                neighboring_land = sum(
-                    grid[ni][nj] == 1
-                    for ni, nj in ((i-1, j), (i+1, j), (i, j-1), (i, j+1))
-                    if 0 <= ni < len(grid) and 0 <= nj < len(grid[0])
-                )
-                perimeter += 4 - neighboring_land
+                # Check the top edge
+                if i == 0 or grid[i-1][j] == 0:
+                    perimeter += 1
+                # Check the bottom edge
+                if i == rows-1 or grid[i+1][j] == 0:
+                    perimeter += 1
+                # Check the left edge
+                if j == 0 or grid[i][j-1] == 0:
+                    perimeter += 1
+                # Check the right edge
+                if j == cols-1 or grid[i][j+1] == 0:
+                    perimeter += 1
+
+    # Return the total perimeter
     return perimeter
