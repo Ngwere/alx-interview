@@ -9,6 +9,10 @@ def isWinner(x, nums):
         x (int): number of rounds
         nums (list): an array of size n
     """
+    if x <= 0 or nums is None:
+        return None
+    if x != len(nums):
+        return None
 
     maria_wins = 0 
     ben_wins = 0
